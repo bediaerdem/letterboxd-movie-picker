@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎬 Letterboxd Movie Picker
+# Letterboxd Movie Picker
 
 **Pick a movie. Let your watchlist decide.**
 
@@ -16,7 +16,7 @@ A modern, cinematic web application that randomly selects a film from your expor
 
 ---
 
-## ✨ Features
+## Features
 
 - **Letterboxd-Inspired Cinematic UI:** Charcoal dark surfaces (`#14181c`, `#1b2228`), subtle film grain ambiance, and signature Letterboxd accent green (`#00e054`).
 - **Drag-and-Drop Watchlist Upload:** Easily upload or drop your exported Letterboxd `watchlist.csv` file.
@@ -27,7 +27,7 @@ A modern, cinematic web application that randomly selects a film from your expor
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **Framework:** [React 19](https://react.dev/)
@@ -42,7 +42,7 @@ A modern, cinematic web application that randomly selects a film from your expor
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - **Node.js** (v18 or higher) & **npm**
@@ -97,7 +97,7 @@ cd letterboxd-movie-picker
 
 ---
 
-## 📖 How to Export Your Letterboxd Watchlist
+## How to Export Your Letterboxd Watchlist
 
 1. Log into your [Letterboxd](https://letterboxd.com) account.
 2. Go to **Settings** → **Data** tab.
@@ -107,42 +107,8 @@ cd letterboxd-movie-picker
 
 ---
 
-## 📂 Project Structure
 
-```text
-letterboxd-movie-picker/
-├── backend/
-│   └── main.py                     # FastAPI application & CSV parser
-├── data/
-│   └── watchlist.csv               # Sample Letterboxd watchlist for testing
-├── frontend/
-│   ├── public/
-│   │   └── favicon.svg             # Application favicon
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Header.jsx          # Header with Letterboxd triad dots
-│   │   │   ├── HeroSection.jsx     # "Pick a movie. Let your watchlist decide."
-│   │   │   ├── FileUpload.jsx      # Drag-and-drop CSV uploader
-│   │   │   ├── PickMovieButton.jsx # Interactive action button with loading states
-│   │   │   ├── MovieResult.jsx     # "Your pick is" presentation card
-│   │   │   ├── MoviePoster.jsx     # 2:3 cinematic poster & fallback card
-│   │   │   ├── LoadingState.jsx    # Cinematic scanner loading animation
-│   │   │   └── ErrorMessage.jsx    # Accessible error alert banner
-│   │   ├── services/
-│   │   │   └── movieService.js     # API service layer (DIP)
-│   │   ├── App.jsx                 # Main state coordinator
-│   │   ├── App.css                 # Component & layout styles
-│   │   ├── index.css               # Design tokens & global resets
-│   │   └── main.jsx                # React root entry
-│   ├── index.html                  # HTML template
-│   ├── package.json
-│   └── vite.config.js
-└── README.md
-```
-
----
-
-## 🏛️ Architecture & Principles
+## Architecture & Principles
 
 - **Single Responsibility (SRP):** Presentation components are decoupled from business logic and data fetching.
 - **Dependency Inversion (DIP):** Components communicate with the backend exclusively through `movieService.js`.
@@ -151,14 +117,7 @@ letterboxd-movie-picker/
 
 ---
 
-## 👤 Author
-
-Developed with care by **Bedia Erdem**  
-- GitHub: [@bediaerdem](https://github.com/bediaerdem)
-
----
-
-## 📄 License
+## License
 
 This project is open-source and available under the [MIT License](LICENSE).
 
