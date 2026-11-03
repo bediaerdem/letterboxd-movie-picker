@@ -10,9 +10,15 @@ import { MoviePoster } from "./MoviePoster";
  * @param {string} [props.movie.uri] - Letterboxd URL
  * @param {string} [props.movie.poster_url] - Optional poster image URL
  * @param {number} props.totalMovies - Total movies parsed from watchlist
+ * @param {number} [props.filteredCount] - Matching movies if filtered
  */
-export function MovieResult({ movie, totalMovies }) {
+export function MovieResult({ movie, totalMovies, filteredCount }) {
   if (!movie) return null;
+
+  const hasFilterApplied =
+    typeof filteredCount === "number" &&
+    filteredCount > 0 &&
+    filteredCount < totalMovies;
 
   return (
     <section className="movie-result-card" aria-live="polite">
@@ -39,9 +45,19 @@ export function MovieResult({ movie, totalMovies }) {
 
           {totalMovies > 0 && (
             <p className="total-movies-caption">
-              Picked from{" "}
-              <strong className="count-highlight">{totalMovies}</strong> movies in
-              your watchlist
+              {hasFilterApplied ? (
+                <span>
+                  Picked from{" "}
+                  <strong className="count-highlight">{filteredCount}</strong>{" "}
+                  matching films (out of {totalMovies} in your watchlist)
+                </span>
+              ) : (
+                <span>
+                  Picked from{" "}
+                  <strong className="count-highlight">{totalMovies}</strong>{" "}
+                  movies in your watchlist
+                </span>
+              )}
             </p>
           )}
 
@@ -65,4 +81,3 @@ export function MovieResult({ movie, totalMovies }) {
     </section>
   );
 }
-

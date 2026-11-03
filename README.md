@@ -4,7 +4,7 @@
 
 **Pick a movie. Let your watchlist decide.**
 
-A modern, cinematic web application that randomly selects a film from your exported Letterboxd watchlist CSV with a sleek, editorial aesthetic inspired by Letterboxd.
+A modern, cinematic web application that randomly selects a film from your exported Letterboxd watchlist CSV with a sleek, artistic aesthetic inspired by Letterboxd.
 
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-8.3-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
@@ -19,6 +19,7 @@ A modern, cinematic web application that randomly selects a film from your expor
 
 - **Letterboxd-Inspired Cinematic UI:** Charcoal dark surfaces (`#14181c`, `#1b2228`), subtle film grain ambiance, and signature Letterboxd accent green (`#00e054`).
 - **Drag-and-Drop Watchlist Upload:** Easily upload or drop your exported Letterboxd `watchlist.csv` file.
+- **Dynamic CSV-Driven Filtering:** Automatically adapts filter controls to the columns present in your CSV (Title search, release era/decades, year range, date added, ratings).
 - **Instant Random Selection:** Backend validates and randomly chooses a title while maintaining full film counts and direct Letterboxd links.
 - **Fully Responsive & Accessible:** Seamless experience on mobile, tablet, and desktop with keyboard navigation, focus indicators, and `prefers-reduced-motion` support.
 
