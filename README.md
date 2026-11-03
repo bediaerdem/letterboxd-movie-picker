@@ -10,7 +10,6 @@ A modern, cinematic web application that randomly selects a film from your expor
 [![Vite](https://img.shields.io/badge/Vite-8.3-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.139-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 </div>
 
@@ -21,8 +20,6 @@ A modern, cinematic web application that randomly selects a film from your expor
 - **Letterboxd-Inspired Cinematic UI:** Charcoal dark surfaces (`#14181c`, `#1b2228`), subtle film grain ambiance, and signature Letterboxd accent green (`#00e054`).
 - **Drag-and-Drop Watchlist Upload:** Easily upload or drop your exported Letterboxd `watchlist.csv` file.
 - **Instant Random Selection:** Backend validates and randomly chooses a title while maintaining full film counts and direct Letterboxd links.
-- **Editorial Poster Fallback:** Displays a 2:3 cinematic typographic poster card featuring film reels and Letterboxd brand marks when real poster URLs are unavailable.
-- **SOLID & Component-Driven Architecture:** Clean, decoupled React components built around Single Responsibility and Dependency Inversion principles.
 - **Fully Responsive & Accessible:** Seamless experience on mobile, tablet, and desktop with keyboard navigation, focus indicators, and `prefers-reduced-motion` support.
 
 ---
@@ -32,7 +29,7 @@ A modern, cinematic web application that randomly selects a film from your expor
 ### Frontend
 - **Framework:** [React 19](https://react.dev/)
 - **Bundler:** [Vite](https://vitejs.dev/)
-- **Styling:** Vanilla CSS with Design Tokens (`index.css` & `App.css`)
+- **Styling:** Vanilla CSS with Design Tokens
 - **Linting:** ESLint with React Hooks & Refresh plugins
 
 ### Backend
@@ -74,7 +71,6 @@ cd letterboxd-movie-picker
    ```bash
    uvicorn backend.main:app --reload --port 8000
    ```
-   *The backend will be live at `http://127.0.0.1:8000`.*
 
 ---
 
@@ -93,7 +89,6 @@ cd letterboxd-movie-picker
    ```bash
    npm run dev
    ```
-   *The frontend will run at `http://localhost:5173`.*
 
 ---
 
@@ -114,10 +109,4 @@ cd letterboxd-movie-picker
 - **Dependency Inversion (DIP):** Components communicate with the backend exclusively through `movieService.js`.
 - **Open / Closed (OCP):** `MoviePoster` supports real image URLs out of the box while gracefully rendering an editorial SVG/CSS fallback when no URL is supplied.
 - **Interface Segregation (ISP):** Components only receive the minimal props they require.
-
----
-
-## License
-
-This project is open-source and available under the [MIT License](LICENSE).
 
