@@ -1,159 +1,97 @@
-
 import { useState } from "react";
+import { Header } from "./components/Header";
+import { HeroSection } from "./components/HeroSection";
+import { FileUpload } from "./components/FileUpload";
+import { PickMovieButton } from "./components/PickMovieButton";
+import { MovieResult } from "./components/MovieResult";
+import { LoadingState } from "./components/LoadingState";
+import { ErrorMessage } from "./components/ErrorMessage";
+import { pickMovieFromWatchlist } from "./services/movieService";
 import "./App.css";
 
-function App() {
+export default function App() {
   const [file, setFile] = useState(null);
   const [movie, setMovie] = useState(null);
   const [totalMovies, setTotalMovies] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  async function handlePickMovie() {
-    if (!file) return;
+  const handleFileSelect = (selectedFile) => {
+    setFile(selectedFile);
+    setMovie(null);
+    setError("");
+  };
+
+  const handlePickMovie = async () => {
+    if (!file || loading) return;
 
     setLoading(true);
     setError("");
     setMovie(null);
 
-    const formData = new FormData();
-    formData.append("file", file);
-
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/pick-movie",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.detail || "Something went wrong.");
-      }
-
+      const data = await pickMovieFromWatchlist(file);
       setMovie(data.movie);
       setTotalMovies(data.total_movies);
     } catch (err) {
-      setError(
-        err.message === "Failed to fetch"
-          ? "Could not connect to the server. Please make sure the backend is running."
-          : err.message
-      );
+      setError(err.message || "An unexpected error occurred.");
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
-    <main className="page">
-      <header className="header">
-        <a className="logo" href="/">
-          <span className="logo-icon">▶</span>
-          <span>reelpick</span>
-        </a>
+    <div className="app-shell">
+      <Header />
 
-        <span className="header-note">YOUR NEXT MOVIE NIGHT</span>
-      </header>
+      <main className="main-content">
+        <HeroSection />
 
-      <section className="hero">
-        <p className="eyebrow">LESS SCROLLING, MORE WATCHING</p>
+        <section className="picker-card" aria-label="Movie Picker Controls">
+          <FileUpload
+            file={file}
+            onFileSelect={handleFileSelect}
+            disabled={loading}
+          />
 
-        <h1>
-          What are we
-          <br />
-          <span>watching tonight?</span>
-        </h1>
-
-        <p className="description">
-          Leave the decision to us. Upload your Letterboxd watchlist
-          and discover your next movie.
-        </p>
-
-        <div className="upload-card">
-          <div className="upload-icon">↑</div>
-
-          <h2>Bring your watchlist</h2>
-
-          <p className="upload-description">
-            Upload the CSV file exported from Letterboxd.
-          </p>
-
-          <label className="file-button">
-            {file ? "Change file" : "Choose CSV file"}
-
-            <input
-              type="file"
-              accept=".csv,text/csv"
-              onChange={(event) => {
-                setFile(event.target.files?.[0] ?? null);
-                setMovie(null);
-                setError("");
-              }}
-              hidden
+          <div className="picker-action-row">
+            <PickMovieButton
+              onClick={handlePickMovie}
+              disabled={!file || loading}
+              loading={loading}
             />
-          </label>
+          </div>
 
-          <p className="file-name">
-            {file ? file.name : "CSV files only"}
-          </p>
+          <ErrorMessage message={error} onDismiss={() => setError("")} />
+        </section>
 
-          <button
-            className="pick-button"
-            onClick={handlePickMovie}
-            disabled={!file || loading}
-          >
-            {loading ? "Picking a movie..." : "Pick a movie for me"}
-            {!loading && <span>↗</span>}
-          </button>
+        {loading && <LoadingState message="Rolling the reel..." />}
 
-          {error && (
-            <p className="error-message" role="alert">
-              {error}
-            </p>
-          )}
+        {movie && !loading && (
+          <MovieResult movie={movie} totalMovies={totalMovies} />
+        )}
+      </main>
 
-          {movie && (
-            <div className="movie-result" aria-live="polite">
-              <p className="result-label">YOUR RANDOM PICK</p>
-
-              <h2 className="movie-title">{movie.name}</h2>
-
-              {movie.year && (
-                <p className="movie-year">{movie.year}</p>
-              )}
-
-              <p className="movie-count">
-                Picked from {totalMovies} movies in your watchlist
-              </p>
-
-              {movie.uri && (
-                <a
-                  className="movie-link"
-                  href={movie.uri}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View on Letterboxd ↗
-                </a>
-              )}
-            </div>
-          )}
-        </div>
-
-        <p className="privacy-note">
-          ◈ Your file is used only to pick a movie.
+      <footer className="site-footer">
+        <p className="footer-brand">
+          <span className="footer-dot" aria-hidden="true" />
+          Letterboxd Movie Picker
         </p>
-      </section>
-
-      <footer className="footer">
-        <span>reelpick</span>
-        <span>ONE WATCHLIST. ONE RANDOM PICK.</span>
+        <p className="footer-credit">
+          Developed by{" "}
+          <a
+            href="https://github.com/bediaerdem"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="footer-author-link"
+          >
+            Bedia Erdem ↗
+          </a>
+        </p>
+        <p className="footer-note">
+          Your uploaded watchlist stays private and is only used to pick your next film.
+        </p>
       </footer>
-    </main>
+    </div>
   );
 }
-
-export default App;
