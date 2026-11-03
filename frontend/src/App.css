@@ -1,0 +1,53 @@
+.error-message {
+  margin: 20px 0 0;
+  color: #ff8b8b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.movie-result {
+  margin-top: 28px;
+  padding: 24px 16px;
+  border: 1px solid #d7f36b55;
+  border-radius: 14px;
+  background: #d7f36b0a;
+}
+
+.result-label {
+  margin: 0 0 12px;
+  color: #d7f36b;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.movie-title {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 25px;
+  line-height: 1.4;
+}
+
+.movie-year {
+  margin: 8px 0;
+  color: #aeb5a8;
+  font-size: 14px;
+}
+
+.movie-count {
+  margin: 18px 0;
+  color: #aeb5a8;
+  font-size: 12px;
+}
+
+.movie-link {
+  display: inline-block;
+  color: #d7f36b;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.movie-link:hover {
+  text-decoration: underline;
+}

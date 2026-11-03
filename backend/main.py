@@ -27,7 +27,7 @@ async def pick_movie(file: UploadFile = File(...)):
     if not file.filename or not file.filename.lower().endswith(".csv"):
         raise HTTPException(
             status_code=400,
-            detail="Lütfen bir CSV dosyası yükleyin.",
+            detail="Please upload a CSV file.",
         )
 
     content = await file.read()
@@ -43,7 +43,10 @@ async def pick_movie(file: UploadFile = File(...)):
         ):
             raise HTTPException(
                 status_code=400,
-                detail="CSV dosyasında Name, Year ve Letterboxd URI sütunları bulunmalı.",
+                detail=(
+                    "The CSV file must contain "
+                    "Name, Year, and Letterboxd URI columns."
+                ),
             )
 
         movies = []
@@ -63,13 +66,13 @@ async def pick_movie(file: UploadFile = File(...)):
     except UnicodeDecodeError:
         raise HTTPException(
             status_code=400,
-            detail="CSV dosyasının karakter kodlaması okunamadı.",
+            detail="The CSV file encoding could not be read.",
         )
 
     if not movies:
         raise HTTPException(
             status_code=400,
-            detail="Dosyada seçilebilecek film bulunamadı.",
+            detail="No movies were found in the file.",
         )
 
     selected_movie = random.choice(movies)
