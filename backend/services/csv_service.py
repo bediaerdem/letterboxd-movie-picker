@@ -62,12 +62,16 @@ def parse_movies_csv(content: bytes) -> List[Dict[str, Any]]:
         name = (row.get("Name") or "").strip()
         year = (row.get("Year") or "").strip()
         uri = (row.get("Letterboxd URI") or "").strip()
+        date = (row.get("Date") or "").strip()
+        rating = (row.get("Rating") or "").strip()
 
         if name:
             movies.append({
                 "name": name,
                 "year": year,
                 "uri": uri,
+                "date": date,
+                "rating": rating,
             })
 
     if not movies:

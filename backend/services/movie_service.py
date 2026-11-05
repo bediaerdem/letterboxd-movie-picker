@@ -31,6 +31,8 @@ def filter_movies(
     for movie in movies:
         name = movie.get("name", "")
         year_str = movie.get("year", "")
+        date = movie.get("date", "")
+        rating_str = movie.get("rating", "")
 
         # 1. Title substring filter
         if filters.query:
@@ -69,6 +71,22 @@ def filter_movies(
                         continue
                 except ValueError:
                     pass
+
+        # 6. Added year filter
+        if filters.added_year:
+            if not date or not date.startswith(str(filters.added_year)):
+                continue
+
+        # 7. Minimum rating filter
+        if filters.min_rating is not None:
+            rating_num: Optional[float] = None
+            if rating_str:
+                try:
+                    rating_num = float(rating_str)
+                except ValueError:
+                    rating_num = None
+            if rating_num is None or rating_num < filters.min_rating:
+                continue
 
         filtered.append(movie)
 

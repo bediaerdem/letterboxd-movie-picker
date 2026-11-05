@@ -21,4 +21,6 @@ class MovieFilter(BaseModel):
     decade: Optional[str] = Field(default=None, description="Target decade e.g. 1990 or CLASSIC")
     year_min: Optional[int] = Field(default=None, description="Minimum release year")
     year_max: Optional[int] = Field(default=None, description="Maximum release year")
+    added_year: Optional[str] = Field(default=None, description="Year the movie was added to the watchlist")
+    min_rating: Optional[float] = Field(default=None, description="Minimum Letterboxd rating")
 

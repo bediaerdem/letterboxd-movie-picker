@@ -50,6 +50,25 @@ class TestMoviesAPI(unittest.TestCase):
         self.assertEqual(response.total_movies, 1)
         self.assertEqual(response.movie.name, "The Matrix")
 
+    def test_pick_movie_with_date_and_rating_filters(self):
+        csv_bytes = (
+            b"Date,Name,Year,Letterboxd URI,Rating\n"
+            b"2023-01-01,The Godfather,1972,https://boxd.it/2a,4.9\n"
+            b"2024-05-12,The Matrix,1999,https://boxd.it/2b,4.7\n"
+            b"2024-07-04,Inception,2010,https://boxd.it/2c,4.3\n"
+        )
+        upload_file = UploadFile(
+            filename="watchlist.csv",
+            file=io.BytesIO(csv_bytes),
+        )
+
+        response = asyncio.run(
+            pick_movie(file=upload_file, added_year="2024", min_rating=4.5)
+        )
+
+        self.assertEqual(response.total_movies, 1)
+        self.assertEqual(response.movie.name, "The Matrix")
+
     def test_pick_movie_invalid_extension(self):
         upload_file = UploadFile(
             filename="watchlist.txt",

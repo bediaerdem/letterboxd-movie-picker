@@ -12,7 +12,6 @@ import {
   parseCsvText,
   extractFilterMetadata,
   applyFilters,
-  exportMoviesToCsvFile,
 } from "./utils/csvParser";
 import "./App.css";
 
@@ -105,26 +104,19 @@ export default function App() {
     setError("");
     setMovie(null);
 
-    const isFiltered = filteredMovies.length < (parsedData?.rows?.length || 0);
-    const activeFilteredCount = filteredMovies.length;
-
     try {
-      // If filters are applied, create an in-memory CSV with only filtered films
-      // and send it to the existing backend endpoint without breaking the API contract.
-      let fileToSend = file;
-      if (isFiltered) {
-        fileToSend = exportMoviesToCsvFile(
-          filteredMovies,
-          parsedData.headers,
-          file.name
-        );
-      }
-
-      const data = await pickMovieFromWatchlist(fileToSend);
+      const data = await pickMovieFromWatchlist(file, {
+        query: filters.query,
+        decade: filters.decade,
+        yearMin: filters.yearMin,
+        yearMax: filters.yearMax,
+        addedYear: filters.addedYear,
+        minRating: filters.minRating,
+      });
 
       setMovie(data.movie);
-      setTotalMovies(parsedData ? parsedData.rows.length : data.total_movies);
-      setFilteredCountAtPick(isFiltered ? activeFilteredCount : null);
+      setTotalMovies(filteredMovies.length || data.total_movies || parsedData?.rows?.length || 0);
+      setFilteredCountAtPick(filteredMovies.length || null);
     } catch (err) {
       setError(err.message || "An unexpected error occurred.");
     } finally {

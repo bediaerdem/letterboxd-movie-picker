@@ -29,6 +29,8 @@ async def pick_movie(
     decade: Optional[str] = None,
     year_min: Optional[int] = None,
     year_max: Optional[int] = None,
+    added_year: Optional[str] = None,
+    min_rating: Optional[float] = None,
 ):
     """
     Receives a Letterboxd watchlist CSV, optionally applies filters,
@@ -68,8 +70,17 @@ async def pick_movie(
             decade=decade,
             year_min=year_min,
             year_max=year_max,
+            added_year=added_year,
+            min_rating=min_rating,
         )
-        if any([query, decade, year_min is not None, year_max is not None])
+        if any([
+            query,
+            decade,
+            year_min is not None,
+            year_max is not None,
+            added_year,
+            min_rating is not None,
+        ])
         else None
     )
 
